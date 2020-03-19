@@ -30,4 +30,8 @@ class UrlAccess
   def request_get_api(end_point, headers)
     RestClient.get(end_point, headers)
   end
+
+  def request_put_api(end_point, payload, headers)
+    RestClient.post(end_point, payload, headers)
+  end
 end
