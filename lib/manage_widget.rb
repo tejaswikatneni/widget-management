@@ -12,14 +12,20 @@ class ManageWidget < UrlAccess
   end
 
   def create_widget(access_token, payload)
-    endpoint = endpoint_post_url('widgets')
+    endpoint = endpoint_url('widgets')
     headers = fetch_headers(access_token)
     request_post_api(endpoint, payload, headers)
   end
 
   def update_widget(access_token, payload, action)
-    endpoint = endpoint_post_url(action)
+    endpoint = endpoint_url(action)
     headers = fetch_headers(access_token)
     request_put_api(endpoint, payload, headers)
+  end
+
+  def destroy_widget(access_token, action)
+    endpoint = endpoint_url(action)
+    headers = fetch_headers(access_token)
+    request_del_api(endpoint, headers)
   end
 end

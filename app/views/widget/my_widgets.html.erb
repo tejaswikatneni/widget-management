@@ -25,7 +25,9 @@
         <td><%= widget['name']%></td>
         <td><%= widget['description']%></td>
         <td><%= widget['kind']%></td>
-        <td></td>
+        <td><%= link_to 'edit', "/widget/#{widget['id']}/edit?name=#{widget['name']}&description=#{widget['description']}" %> |
+          <%= link_to 'Delete', widget_path(widget['id']), method: 'delete' %>
+        </td>
       </tr>
       <% end %>
     </tbody>

@@ -32,6 +32,10 @@ class UrlAccess
   end
 
   def request_put_api(end_point, payload, headers)
-    RestClient.post(end_point, payload, headers)
+    RestClient.put(end_point, payload, headers)
+  end
+
+  def request_del_api(end_point, headers)
+    RestClient.delete(end_point, headers)
   end
 end

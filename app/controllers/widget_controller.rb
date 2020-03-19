@@ -34,16 +34,28 @@ class WidgetController < ApplicationController
     end
   end
 
+  def edit;end
+
   def update
     widget = { name: widget_params['name'], description: widget_params['description'] }
     payload = { widget: widget }
-    response = ManageWidget.new.update_widget(@access_token, payload, params[:id])
+    action = "widgets/#{params[:id]}"
+    response = ManageWidget.new.update_widget(@access_token, payload, action)
     response = JSON.parse(response.body)
     if response.present? && (response['message'] == 'Success')
       redirect_to widget_my_widgets_path
     else
       flash[:error] = 'There is an error on widget creation.'
-      render 'new'
+      render 'edit'
+    end
+  end
+
+  def destroy
+    action = "widgets/#{params[:id]}"
+    response = ManageWidget.new.destroy_widget(@access_token, action)
+    response = JSON.parse(response.body)
+    if response.present? && (response['message'] == 'Success')
+      redirect_to widget_my_widgets_path
     end
   end
 

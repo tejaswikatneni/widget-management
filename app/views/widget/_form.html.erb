@@ -1,0 +1,28 @@
+<div class="form-row col-md-12">
+  <div class="form-group col-md-6">
+    <label for="inputEmail4">Name</label>
+    <input type="text" name="name" value="<%= params['name'] %>" class="form-control" placeholder="Name" required>
+  </div>
+</div>
+<div class="form-row col-md-12">
+  <div class="form-group col-md-6">
+    <label for="inputEmail4">Description</label>
+    <input type="text" name="description" value="<%= params['description'] %>" class="form-control" placeholder="Description" required></textarea>
+  </div>
+</div>
+<% unless params['name'].present? %>
+<div class="form-row col-md-12">
+  <div class="form-group col-md-6">
+    <label for="kind">Kind</label>
+    <select id="kind" name="kind" class="form-control">
+      <option selected>visible</option>
+      <option>hidden</option>
+    </select>
+  </div>
+</div>
+<% end %>
+<div class="form-row col-md-12">
+  <div class="form-group col-md-6">
+    <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+</div>
