@@ -1,8 +1,28 @@
-<%= link_to('LOGOUT', destroy_user_session_path, :method => :delete) %>
-<h1>ALL Visible Widgets</h1>
-<%= paginate @widgets %>
-<% @widgets.each do |widget| %>
-<%= widget['name']%>
-<%= widget['description']%>
-<%= widget['user']['name']%>
-<% end %>
+<div class="container" %>
+  <h1>ALL Visible Widgets</h1>
+  <%= paginate @widgets %>
+  <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th class="th-sm">Name
+
+        </th>
+        <th class="th-sm">Description
+
+        </th>
+        <th class="th-sm">User
+
+        </th>      
+      </tr>
+    </thead>
+    <tbody>
+      <% @widgets.each do |widget| %>
+      <tr>
+        <td><%= widget['name']%></td>
+        <td><%= widget['description']%></td>
+        <td><%= widget['user']['name']%></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
