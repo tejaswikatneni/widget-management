@@ -9,7 +9,7 @@ class User < ApplicationRecord
   after_create :create_user_on_api
 
   def create_user_on_api
-    user_params = { first_name: first_name, last_name: last_name, email: email, password: password, image_url: 'imageurl' }
+    user_params = { first_name: first_name, last_name: last_name, email: email, password: password, image_url: image_url }
     payload = { client_id: ENV['client_id'], client_secret: ENV['client_secret'], "user": user_params }.to_json
     response = ManageUser.new.register_users(payload)
     response = JSON.parse(response.body)

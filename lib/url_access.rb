@@ -19,8 +19,12 @@ class UrlAccess
     "#{ENV['app_url']}/#{action}"
   end
 
-  def endpoint_get_url(action)
-    "#{ENV['app_url']}/#{action}?client_id=#{ENV['client_id']}&client_secret=#{ENV['client_secret']}"
+  def endpoint_get_url(action, term=nil)
+    if term.present?
+      "#{ENV['app_url']}/#{action}?client_id=#{ENV['client_id']}&client_secret=#{ENV['client_secret']}&term=#{term}"
+    else
+      "#{ENV['app_url']}/#{action}?client_id=#{ENV['client_id']}&client_secret=#{ENV['client_secret']}"
+    end
   end
 
   def request_post_api(end_point, payload, headers)

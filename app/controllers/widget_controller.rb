@@ -2,7 +2,12 @@ class WidgetController < ApplicationController
   before_action :authenticate_user!, :check_refresh_token
 
   def index
-    response = ManageWidget.new.list_visible_widgets(@access_token)
+    if params[:search].present?
+      term = params[:search]
+    else
+      term = nil
+    end
+    response = ManageWidget.new.list_visible_widgets(@access_token, term)
     response = JSON.parse(response.body)
     if response.present? && (response['message'] == 'Success')
       widgets = response['data']['widgets']
@@ -11,7 +16,12 @@ class WidgetController < ApplicationController
   end
 
   def my_widgets
-    response = ManageWidget.new.list_user_widgets(@access_token)
+    if params[:search].present?
+      term = params[:search]
+    else
+      term = nil
+    end
+    response = ManageWidget.new.list_user_widgets(@access_token, term)
     response = JSON.parse(response.body)
     if response.present? && (response['message'] == 'Success')
       widgets = response['data']['widgets']
