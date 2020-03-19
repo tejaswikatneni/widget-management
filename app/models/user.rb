@@ -6,13 +6,42 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  after_create :create_user_on_api, :create_auth_token
+  after_create :create_user_on_api
 
   def create_user_on_api
-  	#todo
+    user_params = {first_name: first_name, last_name: last_name, email: email, password: password, image_url: 'imageurl'}
+  	payload = {client_id: ENV['client_id'], client_secret: ENV['client_secret'], "user": user_params}.to_json
+    response = ManageUser.new.register_users(payload)
+    response = JSON.parse(response.body)
+    if response.present?
+      response_data = response["data"]["token"]
+      update_user_auth(response_data)
+    end
   end
 
-  def create_auth_token
-  	#todo
+  def refresh_auth_token
+    if token_expired_at.to_time < Time.now
+      response = UrlAccess.new.refresh_token(access_token, refresh_token)
+      if response.present?
+        response_data = response["data"]["token"]
+        update_user_auth(response_data)
+      end
+    end
   end
+
+  def update_user_auth(response_data)
+    access_token = response_data["access_token"]
+    refresh_token = response_data["refresh_token"]
+    expires_in = response_data["expires_in"]
+    token_created_at = response_data["created_at"]
+    token_expiry_date = UrlAccess.new.cal_expiry_date(token_created_at, expires_in)
+    update(access_token: access_token, refresh_token: refresh_token, token_expired_at: token_expiry_date)
+  end
+
+  # def create_auth_token
+  #   debugger
+  #   expires_in = Time.at(expires_in.to_i/1000)
+  #   created_at = Time.at(created_at.to_i/1000)
+  # 	#todo
+  # end
 end

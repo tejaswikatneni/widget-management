@@ -5,7 +5,6 @@ class AddColumnsToUsers < ActiveRecord::Migration[5.0]
     add_column :users, :image_url, :text
     add_column :users, :access_token, :string
     add_column :users, :refresh_token, :string
-    add_column :users, :expires_in, :string
-    add_column :users, :token_created_at, :string
+    add_column :users, :token_expired_at, :datetime
   end
 end

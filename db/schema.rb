@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200318145837) do
+ActiveRecord::Schema.define(version: 20200318171100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,7 @@ ActiveRecord::Schema.define(version: 20200318145837) do
     t.text     "image_url"
     t.string   "access_token"
     t.string   "refresh_token"
-    t.string   "expires_in"
-    t.string   "token_created_at"
+    t.datetime "token_expired_at"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
