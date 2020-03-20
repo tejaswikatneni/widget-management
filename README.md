@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Code has been deployed to heroku please check the following link https://guarded-bayou-40616.herokuapp.com/
 
-Things you may want to cover:
+To setup the application on local machine
 
-* Ruby version
+bundle install
 
-* System dependencies
+Include postgres database
 
-* Configuration
+Run rake db:create and rake db:migrate
 
-* Database creation
+rails s
 
-* Database initialization
+Test user credentials on https://guarded-bayou-40616.herokuapp.com/
+Email: test@mailinator.com
+Password: qazplm123
 
-* How to run the test suite
+Set environment variables
 
-* Services (job queues, cache servers, search engines, etc.)
+run figaro install, it generates application.yml file
 
-* Deployment instructions
+client_id: client_id, 
+client_secret: client_secret,
+app_url: https://showoff-rails-react-production.herokuapp.com/api/v1,
+host_url: https://showoff-rails-react-production.herokuapp.com, 
+token_type: Bearer
 
-* ...
